@@ -19,6 +19,9 @@ $RECYCLE.BIN/
 
 .metadata
 
+.project
+.pydevproject
+
 # =========================
 # Operating System Files
 # =========================
