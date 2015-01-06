@@ -98,6 +98,15 @@ class Test(unittest.TestCase):
             return ''
         else:
             return self
+    
+    def test_PlateauOrientation(self):
+        p1 = Plateau(3,3)
+        r1 = Rover("r1", Orientation2d(Point2d(0,0), Direction2d(Direction2d.SOUTH)), p1)
+        self.assertRaises(FallOffException, r1.move)
+        assert(repr(r1._orientation) == "0 0 S")
+        r1.rotate(Direction2d.turn_map['R'])
+        assert(repr(r1._orientation) == "0 0 W")
+        self.assertRaises(FallOffException, r1.move)
         
     def test_RoversInPlateaus(self):
         p1 = Plateau(5,5)
@@ -105,6 +114,8 @@ class Test(unittest.TestCase):
         #1 2 N
         #LMLMLMLMM
         r1 = Rover("r1", Orientation2d(Point2d(1,2), Direction2d(Direction2d.NORTH)), p1)
+        r2 = Rover("r2", Orientation2d(Point2d(3,3), Direction2d(Direction2d.EAST)), p1)
+        
         r1.rotate(Direction2d.turn_map['L'])
         r1.move() 
         assert(p1.get_point_entry(Point2d(1,2)) == None)
@@ -119,7 +130,7 @@ class Test(unittest.TestCase):
         
         #3 3 E
         #MMRMMRMRRM  
-        r2 = Rover("r2", Orientation2d(Point2d(3,3), Direction2d(Direction2d.EAST)), p1)
+        
         r2.move()
         r2.move()
         r2.rotate(Direction2d.turn_map['R'])
@@ -150,6 +161,7 @@ class Test(unittest.TestCase):
         r2.rotate(Direction2d.turn_map['R'])
         r2.move()
         self.assertRaises(EntityPlaceFailureException, r2.move)
-             
+    
+    
 if __name__ == "__main__":
     unittest.main()
