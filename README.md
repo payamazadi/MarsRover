@@ -1,6 +1,6 @@
 MarsRover
 =========
-MarsRover is one of three problems we (at DealerOn) send candidates, from which they pick and solve one. Genreally three days is alotted for completion. The test is adapted from the code test used at ThoughtWorks.
+MarsRover is one of three problems we (at DealerOn) send candidates, from which they pick and solve one. Generally three days is alotted for completion. The test is adapted from the code test used at ThoughtWorks.
 
 Problem prompt
 =========
