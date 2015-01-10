@@ -108,12 +108,17 @@ class Test(unittest.TestCase):
         assert(repr(r1._orientation) == "0 0 W")
         self.assertRaises(FallOffException, r1.move)
         
-    def test_RoversInPlateaus(self):
+    def test_RoversInPlateaus1(self):
         p1 = Plateau(5,5)
         
         #1 2 N
         #LMLMLMLMM
         r1 = Rover("r1", Orientation2d(Point2d(1,2), Direction2d(Direction2d.NORTH)), p1)
+        #The spec is somewhat ambiguous about when to place rovers. Example input indicates place a rover, give it instructions,
+        #and then place the next one and move it, etc. But this seems like it could change as the product develops. It'd be ideal to have
+        #multiple rovers that could move at the same time. This whole thing could become multi-threaded, movement operations would need to be
+        #atomic, etc etc. For now we just verify that you can place additional rovers first, so that from the get-go, Rover1's movement doesn't
+        #collide with where Rover2 already is. Maybe later this behavior could be changeable with some flag or configuration setting etc.
         r2 = Rover("r2", Orientation2d(Point2d(3,3), Direction2d(Direction2d.EAST)), p1)
         
         r1.rotate(Direction2d.turn_map['L'])
@@ -160,8 +165,13 @@ class Test(unittest.TestCase):
         r2.move()
         r2.rotate(Direction2d.turn_map['R'])
         r2.move()
+        #Rovers would collide
         self.assertRaises(EntityPlaceFailureException, r2.move)
     
-    
+    def test_RoversInPlateaus2(self):
+        p1 = Plateau(5,3)
+        r1 = Rover("r1", Orientation2d(Point2d(5,3), Direction2d(Direction2d.NORTH)), p1)
+        self.assertRaises(FallOffException, r1.move)
+        
 if __name__ == "__main__":
     unittest.main()

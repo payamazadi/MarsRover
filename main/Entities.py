@@ -73,7 +73,7 @@ class Rover(Entity):
             else:
                 return False
         else:
-        	#this should just return exceptions returned by the plane classes
+            #this should just return exceptions returned by the plane classes
             if self._plane.outside_bounds_dangerous() and self._plane.validate_point(new_orientation._point) == False:
                 raise FallOffException("If I, " + self.what_am_i() + \
                 ", were to move, I would fall off the face of this space. Not moving.")
